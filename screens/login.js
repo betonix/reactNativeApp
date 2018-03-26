@@ -20,8 +20,13 @@ import {
 
 const width = Dimensions.get('screen').width;
 
-export default class Login extends Component<Props> {
+export default class Login extends Component {
 
+  static navigatorStyle = {
+    drawUnderNavBar: true,
+    navBarTranslucent: true
+  };
+  
     constructor(props){
       super(props);
       this.state = {
@@ -36,31 +41,43 @@ export default class Login extends Component<Props> {
 
         method : 'POST',
         body   : JSON.stringify({
-           "email": "peter@klaven",
-           "password": "cityslicka"
+           "user": "clenio",
+           "password": "12345678"
         }),
 
         headers : new Headers({
-          'Content-yype' : 'application/json'
+          'Content-type' : 'application/json'
         })
 
       }
 
-      fetch( 'https://reqres.in/api/login',loginInfo)
+      fetch( 'http://192.168.0.2:8081/login',loginInfo)
         .then(response => {       
-           
+           console.warn(response);
            AsyncStorage.setItem('usuario','betonix');
            return AsyncStorage.getItem('usuario');
 
         }).then(usuario=>{
-          this.setState({mensagem:'Erro no login'});
-          console.warn(usuario);
+
+          // this.setState({mensagem:'Erro no login'});
+          // this.props.navigator.push({screen:'Loginn',animated: true, // does the pop have transition animation or does it happen immediately (optional)
+          // animationType: 'slide-horizontal',})
+          this.props.navigator.showInAppNotification({
+            screen: "Loginn", // unique ID registered with Navigation.registerScreen
+            passProps: {}, // simple serializable object that will pass as props to the in-app notification (optional)
+            autoDismissTimerSec: 2 // auto dismiss notification in seconds
+           });
         })
+
     }
 
 
   render() {
 
+    this.props.navigator.setStyle({
+      navBarHidden: true, 
+    });
+    
 
     return (
       <View style = {styles.form}>
@@ -93,7 +110,8 @@ const styles = StyleSheet.create({
   },
 
   form:{
-   flex            : 1
+   flex            : 1,
+   backgroundColor: 'red'
   },
 
   input : {

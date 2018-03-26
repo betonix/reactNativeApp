@@ -18,10 +18,10 @@ import {
 
 } from 'react-native';
 
-
+import {SharedElementTransition} from 'react-native-navigation';
 const width = Dimensions.get('screen').width;
 
-export default class Login extends Component<Props> {
+export default class Loginn extends Component<Props> {
 
     constructor(props){
       super(props);
@@ -68,7 +68,7 @@ export default class Login extends Component<Props> {
 
           <View style={styles.container}>
 
-            <Text style={styles.titulo} >picplay</Text>
+            <Text style={styles.titulo} >Segunda</Text>
 
             <View style={styles.formLogin}>
 
@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
   },
 
   form:{
-   flex            : 1
+   flex            : 1,
+   backgroundColor: 'blue'
   },
 
   input : {
