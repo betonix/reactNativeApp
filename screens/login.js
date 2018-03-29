@@ -14,7 +14,9 @@ import {
   View,
   Dimensions,
   Button,
-  AsyncStorage
+  AsyncStorage,
+  TouchableHighlight,
+  TouchableOpacity
 
 } from 'react-native';
 
@@ -84,7 +86,7 @@ export default class Login extends Component {
 
           <View style={styles.container}>
 
-            <Text style={styles.titulo} >picplay</Text>
+            <Text style={styles.titulo} >APP</Text>
 
             <View style={styles.formLogin}>
 
@@ -94,6 +96,12 @@ export default class Login extends Component {
 
              </View>
             <Button style={styles.buttonLogin}  onPress={this.login.bind(this)} title="Login"/>
+            <Button
+  onPress={this.login.bind(this)}
+  title="Learn More"
+  color="#841584"
+  accessibilityLabel="Learn more about this purple button"
+/>
              <Text style={styles.loginMsg} >{this.state.mensagem}</Text>
           </View>
       </View>
@@ -111,7 +119,7 @@ const styles = StyleSheet.create({
 
   form:{
    flex            : 1,
-   backgroundColor: 'red'
+   backgroundColor: '#87CEEB'
   },
 
   input : {
