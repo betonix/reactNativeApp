@@ -43,32 +43,30 @@ export default class Login extends Component {
 
         method : 'POST',
         body   : JSON.stringify({
-           "user": "clenio",
-           "password": "12345678"
-        }),
-
-        headers : new Headers({
-          'Content-type' : 'application/json'
-        })
+          "email": "peter@klaven",
+          "password": "cityslicka"
+      })
 
       }
 
-      fetch( 'http://192.168.0.2:8081/login',loginInfo)
-        .then(response => {       
-           console.warn(response);
+      fetch( 'http://192.168.15.13:3000/login',loginInfo)
+      .then((response) => response.json())
+      .then((responseJson) => {
+          console.log(responseJson);// your JSON response is here   
+           console.warn(responseJson);
            AsyncStorage.setItem('usuario','betonix');
            return AsyncStorage.getItem('usuario');
 
         }).then(usuario=>{
 
-          // this.setState({mensagem:'Erro no login'});
-          // this.props.navigator.push({screen:'Loginn',animated: true, // does the pop have transition animation or does it happen immediately (optional)
-          // animationType: 'slide-horizontal',})
-          this.props.navigator.showInAppNotification({
+           this.setState({mensagem:'Erro no login'});
+          /* this.props.navigator.push({screen:'Game1',animated: true, // does the pop have transition animation or does it happen immediately (optional)
+           animationType: 'slide-horizontal',})
+          /*this.props.navigator.showInAppNotification({
             screen: "Loginn", // unique ID registered with Navigation.registerScreen
             passProps: {}, // simple serializable object that will pass as props to the in-app notification (optional)
             autoDismissTimerSec: 2 // auto dismiss notification in seconds
-           });
+           });*/
         })
 
     }
@@ -86,7 +84,7 @@ export default class Login extends Component {
 
           <View style={styles.container}>
 
-            <Text style={styles.titulo} >APP</Text>
+            <Text style={styles.titulo} >picPlay</Text>
 
             <View style={styles.formLogin}>
 
@@ -96,12 +94,7 @@ export default class Login extends Component {
 
              </View>
             <Button style={styles.buttonLogin}  onPress={this.login.bind(this)} title="Login"/>
-            <Button
-  onPress={this.login.bind(this)}
-  title="Learn More"
-  color="#841584"
-  accessibilityLabel="Learn more about this purple button"
-/>
+
              <Text style={styles.loginMsg} >{this.state.mensagem}</Text>
           </View>
       </View>
@@ -118,8 +111,7 @@ const styles = StyleSheet.create({
   },
 
   form:{
-   flex            : 1,
-   backgroundColor: '#87CEEB'
+   flex            : 1
   },
 
   input : {
