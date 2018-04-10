@@ -37,7 +37,7 @@ export default class Game1 extends Component<Props> {
         countdown : time,
         data : [{game:'Resta 1'},{game:'outro'},{game:'outro'},{game:'outro'},{game:'outro'},{game:'outro'},{game:'outro'},{game:'outro'},{game:'outro'},{game:'outro'},{game:'outro'},{game:'outro'}]
       };      
-      socket = SocketIOClient('http://192.168.15.13:3000',{jsonp:false})
+      socket = SocketIOClient('http://192.168.0.15:3000',{jsonp:false})
       socket.emit('joinRoom', 'resta1');
 
       socket.on('message', function(data){
@@ -48,7 +48,11 @@ export default class Game1 extends Component<Props> {
     
     _onPressButton(){  
       const loginInfo = {
+		headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
 
+       },
         method : 'POST',
         body   : JSON.stringify({
           "email": "peter@klaven",
@@ -57,7 +61,7 @@ export default class Game1 extends Component<Props> {
 
       }
         socket.emit('message', 'Hello world!');
-        fetch( 'http://192.168.15.13:3000/create',loginInfo)
+        fetch( 'http://192.168.0.15:3000/create',loginInfo)
         .then((response) => response.json())
         .then((responseJson) => {
            console.warn(responseJson);

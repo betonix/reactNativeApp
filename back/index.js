@@ -5,6 +5,12 @@ var socketioJwt = require('socketio-jwt');
 var jwt = require('jsonwebtoken');
 var app = express();
 var server = http.Server(app);
+var router = express.Router();
+
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 
 var MongoClient = require('mongodb').MongoClient;
@@ -30,7 +36,7 @@ console.log("porta 3000.")
 app.post('/create', function (req, res) {
 
   // TODO: validate the actual user user
-  console.log(req);
+  console.log(req.body);
 
   var user = {
     first_name: 'John',
