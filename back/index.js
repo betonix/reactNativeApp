@@ -9,14 +9,43 @@ var router = express.Router();
 
 var bodyParser = require('body-parser');
 
+var db = require('./db/db.js');
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+//var MongoClient = require('mongodb').MongoClient;
+
+//var url = "mongodb+srv://betonix:beto2525@cluster0-vvu2w.mongodb.net/test";
+//var db = null;
+
+db.DBConnect()
+    .then(() => {
+
+        /*var token = jwt.sign({'NOME':'BETO'}, 'xxx', { expiresIn: 60*5 });
+        io.connect("http://localhost:3000",{
+        // query: 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOT01FIjoiQkVUTyIsImlhdCI6MTUyNTcwMDkxMCwiZXhwIjoxNTI1NzAxMjEwfQ.YF5kEQxpyEKXNc8_mTXOsRegXNloYp-kEOsfi1ILXL4'
+        });*/
+        console.log(token)
+        var routes = require('./routes/routes');
+        routes.assignRoutes(app);
+
+        var socket = require('./webSocket/webSocket');
+        var websocket = socketio(server.listen(3000));
+        socket.assignWebsocket(websocket);
+
+       /* websocket.set('authorization', socketioJwt.authorize({
+          secret: "xxx",
+          handshake: true
+        }));*/
+
+        console.log('Server listening on port 3000');
+    })
+    .catch(err => {
+        console.log('Error: ' + err)
+    })
 
 
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb+srv://betonix:beto2525@cluster0-vvu2w.mongodb.net/test";
-var db = null;
-MongoClient.connect(url, function(err, ddb) {
+/*MongoClient.connect(url, function(err, ddb) {
   if (err) throw err;
   var dbo = ddb.db("test");
   console.log("Database created!");
@@ -31,7 +60,7 @@ console.log("porta 3000.")
 /*websocket.set('authorization', socketioJwt.authorize({
   secret: "xxx",
   handshake: true
-}));*/
+}));
 
 app.post('/create', function (req, res) {
 
@@ -53,6 +82,7 @@ app.post('/create', function (req, res) {
   db.collection('users').find({}).toArray(function(err,result){
     res.json(result)
   })
+  
 });
 
 app.post('/login', function (req, res) {
@@ -116,4 +146,4 @@ function sendMovie(room){
     
     
 
-}
+}*/
